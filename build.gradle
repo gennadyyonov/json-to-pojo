@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'lv.gennadyyonov'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set("lombokVersion", "1.18.10")
+    set("jsonschema2pojoVersion", "1.0.2")
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+task runJson2PojoDemo(type: JavaExec) {
+    group = "execution"
+    description = "Run Json2PojoConverterDemo"
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'lv.gennadyyonov.json2pojo.Json2PojoConverterDemo'
+}
+
+dependencies {
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    compile "org.jsonschema2pojo:jsonschema2pojo-core:${jsonschema2pojoVersion}"
+}
